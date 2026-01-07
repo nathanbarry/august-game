@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY | Parkour</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="ui-overlay">
+            <div id="level-indicator">
+                <span class="label">LEVEL</span>
+                <span id="current-level">1</span>
+            </div>
+            <div id="timer">
+                <span class="label">TIME</span>
+                <span id="current-time">00:00</span>
+            </div>
+            <div id="deaths-counter">
+                <span class="label">DEATHS</span>
+                <span id="death-count">0</span>
+            </div>
+        </div>
+
+        <div id="start-screen" class="screen">
+            <div class="screen-content">
+                <h1 class="glitch" data-text="VELOCITY">VELOCITY</h1>
+                <p class="subtitle">PARKOUR EVOLVED</p>
+                
+                <div id="character-customizer">
+                    <span class="customizer-label">CHOOSE YOUR STYLE</span>
+                    <div id="character-preview">
+                        <canvas id="preview-canvas" width="80" height="100"></canvas>
+                    </div>
+                    <div id="color-options">
+                        <button class="color-btn selected" data-color="#00f5ff" data-trail="rgba(0, 245, 255, 0.3)" style="background: #00f5ff;" title="Cyan"></button>
+                        <button class="color-btn" data-color="#ff00aa" data-trail="rgba(255, 0, 170, 0.3)" style="background: #ff00aa;" title="Pink"></button>
+                        <button class="color-btn" data-color="#00ff88" data-trail="rgba(0, 255, 136, 0.3)" style="background: #00ff88;" title="Green"></button>
+                        <button class="color-btn" data-color="#ffff00" data-trail="rgba(255, 255, 0, 0.3)" style="background: #ffff00;" title="Yellow"></button>
+                        <button class="color-btn" data-color="#ff6b35" data-trail="rgba(255, 107, 53, 0.3)" style="background: #ff6b35;" title="Orange"></button>
+                        <button class="color-btn" data-color="#a855f7" data-trail="rgba(168, 85, 247, 0.3)" style="background: #a855f7;" title="Purple"></button>
+                        <button class="color-btn" data-color="#ffffff" data-trail="rgba(255, 255, 255, 0.3)" style="background: #ffffff;" title="White"></button>
+                        <button class="color-btn" data-color="#ff3344" data-trail="rgba(255, 51, 68, 0.3)" style="background: #ff3344;" title="Red"></button>
+                    </div>
+                </div>
+                
+                <div id="level-selector">
+                    <span class="customizer-label">SELECT LEVEL</span>
+                    <div id="level-options">
+                        <button class="level-btn selected" data-level="0">1</button>
+                        <button class="level-btn" data-level="1">2</button>
+                        <button class="level-btn" data-level="2">3</button>
+                        <button class="level-btn" data-level="3">4</button>
+                        <button class="level-btn" data-level="4">5</button>
+                        <button class="level-btn" data-level="5">6</button>
+                        <button class="level-btn" data-level="6">7</button>
+                        <button class="level-btn" data-level="7">8</button>
+                        <button class="level-btn" data-level="8">9</button>
+                        <button class="level-btn" data-level="9">10</button>
+                    </div>
+                    <div id="level-name">FIRST STEPS</div>
+                </div>
+                
+                <div class="controls-info">
+                    <div class="control"><span class="key">←→</span> Move</div>
+                    <div class="control"><span class="key">SPACE</span> Jump</div>
+                    <div class="control"><span class="key">↓</span> Slide</div>
+                    <div class="control"><span class="key">SHIFT</span> Dash</div>
+                </div>
+                <button id="start-btn" class="neon-btn">BEGIN RUN</button>
+            </div>
+        </div>
+
+        <div id="level-complete-screen" class="screen hidden">
+            <div class="screen-content">
+                <h2>LEVEL COMPLETE</h2>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-label">Time</span>
+                        <span id="level-time" class="stat-value">00:00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Deaths</span>
+                        <span id="level-deaths" class="stat-value">0</span>
+                    </div>
+                </div>
+                <button id="next-level-btn" class="neon-btn">NEXT LEVEL</button>
+            </div>
+        </div>
+
+        <div id="game-over-screen" class="screen hidden">
+            <div class="screen-content">
+                <h2 class="glitch" data-text="WASTED">WASTED</h2>
+                <p class="death-message" id="death-message">You fell into the void</p>
+                <button id="retry-btn" class="neon-btn">RETRY</button>
+            </div>
+        </div>
+
+        <div id="victory-screen" class="screen hidden">
+            <div class="screen-content">
+                <h2 class="glitch" data-text="VICTORY">VICTORY</h2>
+                <p class="subtitle">ALL LEVELS COMPLETE</p>
+                <div class="final-stats">
+                    <div class="stat">
+                        <span class="stat-label">Total Time</span>
+                        <span id="total-time" class="stat-value">00:00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Total Deaths</span>
+                        <span id="total-deaths" class="stat-value">0</span>
+                    </div>
+                </div>
+                <button id="replay-btn" class="neon-btn">PLAY AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
